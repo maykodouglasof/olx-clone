@@ -12,7 +12,6 @@ import AdPage from './pages/AdPage';
 import AddAd from './pages/AddAd';
 import Ads from './pages/Ads';
 
-
 export default () => {
     return (
         <Switch>

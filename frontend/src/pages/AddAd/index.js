@@ -9,7 +9,6 @@ import { PageContainer, PageTitle, ErrorMessage } from '../../components/MainCom
 
 const Page = () => {
     const api = useApi();
-
     const fileField = useRef();
     const history = useHistory();
 
@@ -20,7 +19,7 @@ const Page = () => {
     const [price, setPrice] = useState('');
     const [priceNegotiable, setPriceNegotiable] = useState(false);
     const [desc, setDesc] = useState('');
-
+    
     const [disabled, setDisabled] = useState(false);
     const [error, setError] = useState('');
 
@@ -48,14 +47,14 @@ const Page = () => {
 
         if(errors.length === 0) {
             const fData = new FormData();
-            fData.append('title' , title);
-            fData.append('price' , price);
-            fData.append('priceneg' , priceNegotiable);
-            fData.append('desc' , desc);
-            fData.append('cat' , category);
+            fData.append('title', title);
+            fData.append('price', price);
+            fData.append('priceneg', priceNegotiable);
+            fData.append('desc', desc);
+            fData.append('cat', category);
 
             if(fileField.current.files.length > 0) {
-                for(let i=0; i<fileField.current.files.length; i++) {
+                for(let i=0;i<fileField.current.files.length;i++) {
                     fData.append('img', fileField.current.files[i]);
                 }
             }
@@ -69,17 +68,15 @@ const Page = () => {
                 setError(json.error);
             }
 
-
         } else {
             setError(errors.join("\n"));
         }
 
         setDisabled(false);
-
     }
 
     const priceMask = createNumberMask({
-        prefix: 'R$ ',
+        prefix:'R$ ',
         includeThousandsSeparator:true,
         thousandsSeparatorSymbol:'.',
         allowDecimal:true,
@@ -96,7 +93,7 @@ const Page = () => {
 
                 <form onSubmit={handleSubmit}>
                     <label className="area">
-                        <div className="area--title">Título</div>
+                        <div className="area--title">Titulo</div>
                         <div className="area--input">
                             <input
                                 type="text"
@@ -111,60 +108,59 @@ const Page = () => {
                         <div className="area--title">Categoria</div>
                         <div className="area--input">
                             <select
-                            disabled={disabled}
-                            onChange={e=>setCategory(e.target.value)}
-                            required
+                                disabled={disabled}
+                                onChange={e=>setCategory(e.target.value)}
+                                required
                             >
                                 <option></option>
                                 {categories && categories.map(i=>
-                                    <option key={i._id} value={i._id}>{i.name}</option> 
-                                    )}
+                                    <option key={i._id} value={i._id}>{i.name}</option>
+                                )}
                             </select>
                         </div>
                     </label>
                     <label className="area">
                         <div className="area--title">Preço</div>
                         <div className="area--input">
-                           <MaskedInput
-                            mask={priceMask}
-                            placeholder="R$ "
-                            disabled={disabled || priceNegotiable}
-                            value={price}
-                            onChange={e=>setPrice(e.target.value)}
-                           />
+                            <MaskedInput
+                                mask={priceMask}
+                                placeholder="R$ "
+                                disabled={disabled || priceNegotiable}
+                                value={price}
+                                onChange={e=>setPrice(e.target.value)}
+                            />
                         </div>
                     </label>
                     <label className="area">
                         <div className="area--title">Preço Negociável</div>
                         <div className="area--input">
-                           <input 
-                           type="checkbox"
-                           disabled={disabled}
-                           checked={priceNegotiable}
-                           onChange={e=>setPriceNegotiable(!priceNegotiable)} 
-                           />
+                            <input
+                                type="checkbox"
+                                disabled={disabled}
+                                checked={priceNegotiable}
+                                onChange={e=>setPriceNegotiable(!priceNegotiable)}
+                            />
                         </div>
                     </label>
                     <label className="area">
                         <div className="area--title">Descrição</div>
                         <div className="area--input">
-                           <textarea 
-                            disabled={disabled}
-                            value={desc}
-                            onChange={e=>setDesc(e.target.value)}
-                           >
-                           </textarea>
+                            <textarea
+                                disabled={disabled}
+                                value={desc}
+                                onChange={e=>setDesc(e.target.value)}
+                            ></textarea>
                         </div>
                     </label>
                     <label className="area">
                         <div className="area--title">Imagens (1 ou mais)</div>
                         <div className="area--input">
-                           <input 
-                           type="file"
-                           disabled={disabled}
-                           ref={fileField}
-                           multiple
-                           />
+                            <input
+                                type="file"
+                                disabled={disabled}
+                                ref={fileField}
+                                multiple
+                            />
                         </div>
                     </label>
                     <label className="area">
